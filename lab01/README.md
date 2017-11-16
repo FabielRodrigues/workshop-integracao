@@ -1,27 +1,28 @@
-## Lab one - Create first SprintBoot Fuse project
-In JBoss Developer Studio, create a new project by right click in the project explorer panel, select **New** -> **Fuse Integration Project**
+## Lab 01 - Criar um projeto FIS (SpringBoot)
+
+Na IDE Jboss Developer Studio (JBDS), crie um novo projeto utilizando o click direito do mouse no painel project explorer, selecione: **New** -> **Fuse Integration Project**
 
 ![01-FIS-project.png](./img/01-FIS-project.png)
 
-Enter **myfuselab** as the project name, and click *next*
+Para o nome do projeto utilize **myfuselab** , e clique em *next*
 
-IMPORTANT NOTE : MUST select **2.18.1.redhat-000012** as the Camel Version!!
+IMPORTANTE : Selecione a versão **2.18.1.redhat-000012** do Camel !
 
-In select target runtime, click *next*
+Em *select target runtime*, clique em *next*
 
 ![02-runtime.png](./img/02-runtime.png)
 
-In Advance project setup, choose **Use a predefined template** and select **Fuse on OpenShift** -> **SprintBoot on OpenShift** and click *finish*
+Em *Advance project setup*, escolha **Use a predefined template** e selecione **Fuse on OpenShift** -> **SprintBoot on OpenShift** e clique em *finish*
 
 ![03-template.png](./img/03-template.png)
 
-JBDS is going ask if you want to change to Fuse perspective, click yes. 
+O JBDS irá perguntar se você quer alterar a perspectiva para Fuse, informe que *sim*.
 
-Under *src/main/resources* duplicate **application.properties** and with name **application-dev.properties**, we are going to use this as the setting during our development time.
+No diretório *src/main/resources* teremos dois arquivos de propriedades **application.properties** and e **application-dev.properties**, nós utilizaremos o com prefixo *-dev* no desenvolvimento deste laboratório.
 
 ![04-devproperties.png](./img/04-devproperties.png)
 
-Append at the end the following datasource configuration to file **application-dev.properties**,
+Adicione o trecho abaixo nas configurações de datasource no arquivo: **application-dev.properties**
 
 ```
 #Database configuration
@@ -31,19 +32,19 @@ spring.datasource.password =
 spring.datasource.driver-class-name = org.h2.Driver
 spring.datasource.platform = h2
 ```
-*note: we are using H2 in memory database for testing. And thanks to autowiring in SpringBoot, it is now automatically loaded and wired as the default datasource to the Camel context*
 
-Create a new file under *src/main/resources* by right click on the folder itself in the project explorer panel, select **New** -> **Others**
+*NOTA: Utilizaremos o banco de dados em memória para testes. E graças ao recurso de autowiring do SpringBoot, este datasource já estará carregado e pronto para uso como datasource padrão no Camel Context.*
+
+Crie um novo arquivo em *src/main/resources*, clicando com o mouse direito no diretório no painel "project explorer" e selecione **New** -> **Others**
 
 ![05-newfile.png](./img/05-newfile.png)
 
-In Select a wizard, choose **File** and click next,
-
-In File, put **schema.sql** as the file name, and make sure it's under the myfuselab project *src/main/resources* and select finish.
+Em "Select a wizard", escolha **File** e clique em next, 
+em File, insira **schema.sql** como nome para o arquivo, e se certifique que o mesmo estará no diretório *src/main/resources* e selecione "finish".
 
 ![06-schemasql.png](./img/06-schemasql.png)
 
-Add the following SQL to **schema.sql**
+Adicione o seguinte SQL no arquivo **schema.sql**
 
 ```
 CREATE TABLE customerdemo (
@@ -58,15 +59,15 @@ INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A02','Gold',500
 
 ![07-sql.png](./img/07-sql.png)
 
-Double click on the **camel-context.xml** file under **Camel Contexts**, you will see the Camel route, delete the simple-route in the canvas.
+Duplo clique no arquivo **camel-context.xml** em **Camel Contexts**, agora você estará vendo uma rota camel. Remova a rota existente do canvas.
 
 ![08-deleteroute.png](./img/08-deleteroute.png)
 
-Create a new route by draging **ROUTE** component from the *Routing* palette on the right. Name the route to **customer** by entering it in the *ID* textbox in the properties section.
+Crie uma nova rota arrastando o componente **ROUTE** da palheta *Routing* no canto direito da tela. Insira o nome **customer** na rota, preenchendo o atributo *ID* na seção de propriedade.
 
 ![09-route.png](./img/09-route.png)
 
-Use Timer to kick start the route, drag the **TIMER** component from the *Components* palette on the right, and drag it to the route into the canvas. Under *Properties*-> *Advance* tab -> *Consumer* , set **Repeat Count** to **1**
+Utilize o componente timer arrastando da palheta de componentes a direita para o canvas. Configure o timer para executar apenas uma vez, em *Properties*-> *Advance* tab -> *Consumer* , insira o valor **1** para o atríbuto **Repeat Count**
 
 ![10-timer.png](./img/10-timer.png)
 

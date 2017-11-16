@@ -1,11 +1,14 @@
-# Red Hat Agile API Integration Workshop - Microservices-based Managed API Integration
+# Red Hat - Workshop ágil de Integração com APIs 
 
-This very simple lab will guide you to create your very first Fuse-based SpringBoot microservice project running on OpenShift. There are 4 sections in the labs.
+Este é um workshop prático para para que você crie seu primeiro microserviço utilizando o Fuse Integration Services (FIS) com SpringBoot no Openshift.
+Uma vez que esse microserviço esteja funcionando, iremos mostrar como gerenciar e controlar o acesso a essas APIs através do 3Scale.
 
-* Create a project that read from a database
-* Expose a restful API endpoint to access data in the database
-* Deploy your application on OpenShift
-* Manage and control the access to your API using 3scale
+O workshop será baseado em laboratórios práticos:
+
+1. [Criar um projeto Fuse que obtem registros de um banco de dados](./lab01/README.md)
+2. [Expor o acesso a esses registros através de um endpoint REST](./lab02/README.md)
+3. [Fazer o deploy desta aplicação no Openshift](./lab03/README.md)
+4. [Gerenciar e controlar o acesso a essas APIs através do 3Scale](./lab04/README.md) 
 
 ## Red Hat 3scale API Management Platform Account
 This lab focuses on the deployment and administration of Red Hat 3Scale. One deployment topology available is known as a *hybrid* approach. A *hybrid* Red Hat 3Scale deployment topology is one in which the 3Scale API gateway is self-managed in your own environment. This self-managed API gateway is in two-way communication with the hosted Red Hat 3Scale SaaS API Management Platform (AMP).
