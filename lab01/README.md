@@ -71,19 +71,19 @@ Utilize o componente timer arrastando da palheta de componentes a direita para o
 
 ![10-timer.png](./img/10-timer.png)
 
-To read data from the datasource, select **SQL** component from the *Components* palette on the right to the route. Under *Properties*-> *Advance* tab -> *Path*, set **Query** to **select * from customerdemo** 
+Para conseguir ler os dados da fonte de dados (datasource), selecione o componente **SQL** da palheta *Components* no menu lateral direito ao lado da rota. Em *Properties*-> *Advance* tab -> *Path*, preencha o atributo **Query** com **select * from customerdemo** 
 
 ![11-sqlcomponent.png](./img/11-sqlcomponent.png)
 
-and in *Common* tab set **Data Source** to **dataSource**
+Agora na tab *Common* selecione **dataSource** para o atributo **Data Source**
 
 ![12-datasource.png](./img/12-datasource.png)
 
-And lastly select **LOG** component from the *Components* palette to the end of route. Under *Properties*-> *Detail* tab, set **Message** to **${body}**
+Por último arraste o componente **LOG** da palheta *Components* para o fim da rota. Na tab *Properties*-> *Detail*, atribua **${body}** para  o atributo **Message**.
 
 ![13-log.png](./img/13-log.png)
 
-Before we kick start the application, add the database driver dependency in the **pom.xml** file
+Antes de executarmos a aplicação é necessário inserir a dependência do driver do banco de dados no arquivo **pom.xml**
 
 ```
 ...
@@ -103,15 +103,17 @@ Before we kick start the application, add the database driver dependency in the 
     ...
 </dependencies>
 ```
-Right click on the **myfuselab** in the project explorer panel, select **Run As..** -> **Maven build...** 
+
+Clique direito em **myfuselab** no painel **project explorer**, selecione **Run As..** -> **Maven build...** 
 
 ![14-mavenrun.png](./img/14-mavenrun.png)
 
-in the pop-up windown enter **spring-boot:run** in *Goals* and select **Skip Tests**.
+Na janela popup insira **spring-boot:run** em *Goals* e selecione **Skip Tests**.
 
 ![15-springbootrun.png](./img/15-springbootrun.png)
 
-In your log console, verify that customer data is printed.
+Agora no console de logs, verifique que os dados do customer estão sendo exibidos
+
 ```
 customer - [{CUSTOMERID=A01, VIPSTATUS=Diamond, BALANCE=1000}, {CUSTOMERID=A02, VIPSTATUS=Gold, BALANCE=500}]
 ```
