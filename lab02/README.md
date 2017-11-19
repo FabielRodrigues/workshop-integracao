@@ -1,7 +1,7 @@
-Lab two - Creating APIs
+## Lab 02 - Criando APIs
 ===
 
-To expose a HTTP API endpoint, we first have to inject a Servlet into Camel context, go to **camel-context.xml** file under **Camel Contexts**, open the *source* tab, add the following code snippet before the `<camelContext..>` tag.
+Para expor um endpoint HTTP (API), primeiramente temos que injetar um *Servlet* dentro do *Camel Contexto*, para isso abra o arquivo **camel-context** exibido debaixo da opção **Camel Contexts**, abra a tab *source* e adicione o trecho o seguinte trecho de código antes da tag `<camelContext..>`.
 
 ```
     ...
@@ -15,7 +15,7 @@ To expose a HTTP API endpoint, we first have to inject a Servlet into Camel cont
     ...
 ```
 
-In the same file, under the `<camelcontext..>` tag add the following code snippet to configure the REST endpoint. So that it is now using the Servlet we have injected from last step
+No mesmo arquivo agora embaixo da tag `<camelcontext..>` adicione o seguinte trecho de código para configurar o endpoint REST. Dessa forma ele estará o Servlet que injetamos no último passo
 
 ```
     ...
@@ -29,7 +29,7 @@ In the same file, under the `<camelcontext..>` tag add the following code snippe
 	...
 ```
 
-We are now going to expose a single API endpoint, right after the **restConfiguration** add
+Agora iremos expor um único API endpoint, logo após **restConfiguration** adicione
 
 ```
     ...
@@ -42,21 +42,21 @@ We are now going to expose a single API endpoint, right after the **restConfigur
     ...
 ```
 
-Now, instead of trigger the database select with a timer, we are going to trigger it by the API call. In your Camel route, replace the **Timer** with **Direct** component.
+Agora invés de chamar um *select* na base de dados através do componente timer como havíamos feito, iremos fazer com que essa interação seja via uma chamada a uma API. Na rota Camel, troque o componente **Timer** pelo componente **Direct**.
 
-replace
+Troque
 
 ```
 <from id="time1" uri="timer:timerName?repeatCount=1"/>
 ```
 
-with
+por
 
 ```
 <from id="direct1" uri="direct:getallcustomer"/>
 ```
 
-Next up, we are going to add all the dependencies needed to the maven **pom.xml** file
+Agora vamos adicionar todas as dependências requeridas no arquivo **pom.xml**
 
 ```
     <dependency>
@@ -77,34 +77,39 @@ Next up, we are going to add all the dependencies needed to the maven **pom.xml*
     </dependency>
 ```
 
-Right click on the **myfuselab** in the project explorer panel, select **Run As..** -> **Maven build** to start up the Camel application again. And run the following command in your command line console.
+Agora com um click direito no projeto **myfuselab** no painel *project explorer*, selecione **Run As..** -> **Maven build** para inicializar a aplicação novamente. E execute o seguinte comando no terminal de linha comando do sistema operacional
 
 ```
 curl -i http://localhost:8080/myfuselab/customer/all
 ```
 
-Verify that it is returning a list of customer data in JSON format
+Verifique se o retorno é a lista de *customers* no formato JSON.
 
 ```
 [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000},{"CUSTOMERID":"A02","VIPSTATUS":"Gold","BALANCE":500}]
 ```
 
-Stop the application, Try add another API endpoints which takes in the Customer ID and return the customer data matching the ID.
-
-To display swagger documentation,
+Para verificar a documentação swagger
 
 ```
 curl -i http://localhost:8080/myfuselab/api-docs
 ```
 
-#### HINT!
+Pare a aplicação. Tente adicionar outro REST endpoint que receba como parâmetro o ID do Customer e retorne o Customer com o ID equivalente.
 
-* Add a new REST endpoint that takes in customerid and calls the new camel route we just created.
-	* uri="{custid}"
-* Add a new Camel route that takes in customerid as paramter
-	* select * from customerdemo where customerID=:#custid
+Tente fazer sem olhar :)
 
-Verify with Swagger doc and test the API make sure it is returning customer A01's data in JSON format
+Dicas: 
+
+```
+uri="{custid}"
+```
+
+```
+select * from customerdemo where customerID=:#custid
+```
+
+Verifique a documentação Swagger e teste as chamadas de API, se certificando que o customer retornado é o A01 no formato JSON.
 
 ```
 curl -i http://localhost:8080/myfuselab/api-docs
