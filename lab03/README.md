@@ -1,6 +1,5 @@
 ## Lab 03 - Deploy no Openshift
 
-
 1. Inicialize o seu cluster Openshift através do comando:
 
     ```
