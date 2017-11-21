@@ -6,7 +6,7 @@ Na IDE Jboss Developer Studio (JBDS), crie um novo projeto utilizando o click di
 
 Para o nome do projeto utilize **myfuselab** , e clique em *next*
 
-IMPORTANTE : Selecione a versão **2.18.1.redhat-000012** do Camel !
+IMPORTANTE : Selecione a versão **2.18.1.redhat-000015** do Camel !
 
 Em *select target runtime*, clique em *next*
 
@@ -17,8 +17,6 @@ Em *Advance project setup*, escolha **Use a predefined template** e selecione **
 ![03-template.png](./img/03-template.png)
 
 O JBDS irá perguntar se você quer alterar a perspectiva para Fuse, informe que *sim*.
-
-No diretório *src/main/resources* teremos dois arquivos de propriedades **application.properties** and e **application-dev.properties**, nós utilizaremos o com prefixo *-dev* no desenvolvimento deste laboratório.
 
 ![04-devproperties.png](./img/04-devproperties.png)
 
