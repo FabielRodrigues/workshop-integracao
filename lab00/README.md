@@ -63,7 +63,9 @@ Todos deverão possuir uma conta no [Red Hat 3Scale](https://www.3scale.net), ca
 
 O acesso provido por essa conta trial é suficiente para concluirmos o laboratório 04 sem maiores problemas.
 
-### (OPCIONAL) Openshift local (oc cluster up)
+### OPCIONAL 
+
+#### Openshift local (oc cluster up)
 
 Para quem desejar utilizar o Openshift localmente, você deverá possuir o Docker 1.13 instalado no seu ambiente e posteriormente executar:
 
