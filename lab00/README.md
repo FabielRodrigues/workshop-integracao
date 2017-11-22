@@ -17,7 +17,7 @@ Neste settings.xml consta configurados os seguintes repositórios:
 
 ### Jboss Developer Studio
 
-Para instalar o JBoss Developer Studio, basta executar o **devstudio-integration-stack-11.0.0.GA-standalone-installer.jar** em **workshop-integracao/bin** e seguir as instruções abaixo
+Para instalar o JBoss Developer Studio, basta executar o **devstudio-integration-stack-10.4.0.GA-standalone-installer.jar** em **workshop-integracao/bin** e seguir as instruções abaixo
 
 ![07-jbds.png](./img/07-jbds.png)
 ![08-jbds.png](./img/08-jbds.png)

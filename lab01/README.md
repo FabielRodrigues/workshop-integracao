@@ -18,7 +18,13 @@ Em *Advance project setup*, escolha **Use a predefined template** e selecione **
 
 O JBDS irá perguntar se você quer alterar a perspectiva para Fuse, informe que *sim*.
 
-![04-devproperties.png](./img/04-devproperties.png)
+Antes de continuar, vamos dar uma olhada no que temos até agora. Abra o arquivo *camel-context.xml*, veja que temos uma rota simples com 3 componentes criada.
+
+![03-1-overview.png](./img/03-1-overview.png)
+
+Execute essa rota, através da execução do método main da classe *Application.java*. Clique com o botão direito em cima do método main, *Run As* -> *Java Application*
+
+![03-2-run.png](./img/03-2-run.png)
 
 Adicione o trecho abaixo nas configurações de datasource no arquivo: **application-dev.properties**
 
