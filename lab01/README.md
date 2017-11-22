@@ -22,12 +22,12 @@ O JBDS irá perguntar se você quer alterar a perspectiva para Fuse, informe que
 
 Adicione o trecho abaixo nas configurações de datasource no arquivo: **application-dev.properties**
 
-  #Database configuration
-  spring.datasource.url = jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-  spring.datasource.username = sa
-  spring.datasource.password = 
-  spring.datasource.driver-class-name = org.h2.Driver
-  spring.datasource.platform = h2
+	#Database configuration
+	spring.datasource.url = jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+	spring.datasource.username = sa
+	spring.datasource.password = 
+	spring.datasource.driver-class-name = org.h2.Driver
+	spring.datasource.platform = h2
 
 *NOTA: Utilizaremos o banco de dados em memória para testes. E graças ao recurso de autowiring do SpringBoot, este datasource já estará carregado e pronto para uso como datasource padrão no Camel Context.*
 
@@ -42,14 +42,14 @@ em File, insira **schema.sql** como nome para o arquivo, e se certifique que o m
 
 Adicione o seguinte SQL no arquivo **schema.sql**
 
-  CREATE TABLE customerdemo (
-    customerID varchar(10) NOT NULL,
-    vipStatus varchar(10) NOT NULL ,
-    balance integer NOT NULL
-  );
+	CREATE TABLE customerdemo (
+	customerID varchar(10) NOT NULL,
+	vipStatus varchar(10) NOT NULL ,
+	balance integer NOT NULL
+	);
 
-  INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A01','Diamond',1000);
-  INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A02','Gold',500);
+	INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A01','Diamond',1000);
+	INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A02','Gold',500);
 
 ![07-sql.png](./img/07-sql.png)
 
@@ -79,15 +79,15 @@ Por último arraste o componente **LOG** da palheta *Components* para o fim da r
 
 Antes de executarmos a aplicação é necessário inserir a dependência do driver do banco de dados no arquivo **pom.xml**
 
-  <dependencies>
-    ...
-      <dependency>
-        <groupId>com.h2database</groupId>
-        <artifactId>h2</artifactId>
-        <scope>runtime</scope>
-      </dependency>
-      ...
-  </dependencies>
+	<dependencies>
+	...
+		<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+		<scope>runtime</scope>
+		</dependency>
+		...
+	</dependencies>
 
 Clique direito em **myfuselab** no painel **project explorer**, selecione **Run As..** -> **Maven build...** 
 
@@ -99,4 +99,4 @@ Na janela popup insira **spring-boot:run** em *Goals* e selecione **Skip Tests**
 
 Agora no console de logs, verifique que os dados do customer estão sendo exibidos
 
-  customer - [{CUSTOMERID=A01, VIPSTATUS=Diamond, BALANCE=1000}, {CUSTOMERID=A02, VIPSTATUS=Gold, BALANCE=500}]
+	customer - [{CUSTOMERID=A01, VIPSTATUS=Diamond, BALANCE=1000}, {CUSTOMERID=A02, VIPSTATUS=Gold, BALANCE=500}]
