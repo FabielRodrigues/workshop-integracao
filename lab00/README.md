@@ -1,124 +1,96 @@
-## Red Hat 3scale API Management Platform Account
-This lab focuses on the deployment and administration of Red Hat 3Scale. One deployment topology available is known as a *hybrid* approach. A *hybrid* Red Hat 3Scale deployment topology is one in which the 3Scale API gateway is self-managed in your own environment. This self-managed API gateway is in two-way communication with the hosted Red Hat 3Scale SaaS API Management Platform (AMP).
+## Setup
 
-![00-3scale-hybrid-deployment.png](./img/00-3scale-hybrid-deployment.png)
+Este laboratório tem como objetivo instalar e configurar todos os pré requisitos necessários para este workshop. Assumindo que você já possua o Maven e o Java Development Kit (JDK) devidamente instalados e configurados em seu ambiente. 
 
-The focus of lab 04 of this course is on this hybrid deployment topology. Subsequently, the lab 04 make heavy use of your account in the Red Hat 3Scale SaaS AMP. If you do not have a Red Hat 3Scale SaaS, please register for free trial one at: https://www.3scale.net/signup/.
+Para começarmos pegue o arquivo **workshop-integracao.zip** e faça o unzip na pasta home (opcional) do seu usuário.
 
-You will receive an email in your inbox to complete the signup process and activate your account.
+### Maven
 
-## Installation
-Before you begin, please make sure the following software are properly installed
+É necessário configurar os repositórios Maven, neste repositórios estão armazenados todos os artefatos que precisaremos para construir nossas aplicações com o Fuse Integration Services.
+Copie o arquivo settings.xml para o diretório ~/.m2/settings.xml para usuários de Linux ou Mac OS) ou Documents and Settings\<USER_NAME>/.m2/settings.xml para usuários Windows.
 
-* JBoss Development Suite V1.3 (MacOX/Windows), sorry Linux users, you are on your own
-	* JBoss Developer Studio 10.3.0.GA with Integration SOA plugin installed
-	https://developers.redhat.com/products/devsuite/download/
-	* Java Platform, Standard Edition 1.8.0.111
-	* Red Hat Container Development Kit 2.4.0.GA
-	* Oracle Virtualbox 5.0.26
-	* Vagrant 1.8.1
+Neste settings.xml consta configurados os seguintes repositórios:
 
-## Installing and setup development environment
-Double click on the JBoss Development Suite, log in using your Red Hat Developer Site credentials.
+* Maven central: https://repo1.maven.org/maven2
+* Red Hat GA repository: https://maven.repository.redhat.com/ga
+* Red Hat EA repository: https://maven.repository.redhat.com/earlyaccess/all
 
-![01-login.png](./img/01-login.png)
+### Jboss Developer Studio
 
-Pick an installation folder destination.
-The installer guide will detect the components needed, and guide you through the installation process.
+Para instalar o JBoss Developer Studio, basta executar o **devstudio-integration-stack-11.0.0.GA-standalone-installer.jar** em **workshop-integracao/bin** e seguir as instruções abaixo
 
-Installed the components with the version specified in the installer and start to download and install.
+![07-jbds.png](./img/07-jbds.png)
+![08-jbds.png](./img/08-jbds.png)
+![09-jbds.png](./img/09-jbds.png)
+Substitua o /Users/rramalho para refletir o local onde você fez o unzip **workshop-integracao.zip** no começo deste lab.
+![10-jbds.png](./img/10-jbds.png)
+Selecione somente as opções
+* Jboss Integration and SOA development
+* JBoss Fuse Tools
 
-![02-components.png](./img/02-components.png)
+![11-jbds.png](./img/11-jbds.png)
+![12-jbds.png](./img/12-jbds.png)
+Após a instalação o seu Jboss Developer Studio será iniciado.
+![13-jbds.png](./img/13-jbds.png)
+Aponte o workspace para o **workshop-integracao/workspace**
 
-Immediately after installation, you will be prompted to select a workspace for your developer studio project. Select anything path of your choice.
+Pronto, temos o JBoss Developer Studio instalado e configurado pronto para começarmos a desenvolvedor as aplicações Fuse!
 
-Once inside Red Hat JBoss Developer Studio, select "Software/Update" tag in the middle panel. Check the "JBoss Fuse Development" box and click on Install/Update button.
+### Openshift client
 
-![04-plugin.png](./img/04-plugin.png)
+Escolha o binário compátivel com seu sistema operacional em **workshop-integracao/bin** e faca o unzip. Insira este diretório no PATH do seu sistema operacional
 
-Red Hat JBoss Developer Studio will restart.
+Para testar execute o comando:
 
-## Installing and setup Container Development Kit
+	oc version
 
-Under the folder where you installed the Development Suite, you will find a folder named **cdk** go to **${DEVSUITE_INSTALLTION_PATH}/cdk/components/rhel/rhel-ose/** edit file **Vagrantfile**
 
-Find the IMAGE_TAG and configure the OCP version to v3.4, then save the file.
+O output deverá ser semelhante a este:
 
-```
-#Modify IMAGE_TAG if you need a new OCP version e.g. IMAGE_TAG="v3.3.1.3"
-IMAGE_TAG="v3.4"
-```
+	oc v3.6.173.0.21
+	kubernetes v1.6.1+5115d708d7
+	features: Basic-Auth
 
-In a command line console, start up your local Openshift
+### Openshift
 
-```
-vagrant up
-```
+Utilizaremos um Openshift que já está provisionado, o mesmo poderá ser acessado através da URL: https://console.ocp.rhbrlab.com:8443/console/ com as credenciais fornecidas durante o workshop.
 
-Install and setup oc binary client
+Todo acesso ao cluster será removido no fim do dia.
 
-```
-vagrant service-manager install-cli openshift
-export PATH=${vagrant_dir}/data/service-manager/bin/openshift/1.4.0:$PATH
-eval "$(VAGRANT_NO_COLOR=1 vagrant service-manager install-cli openshift  | tr -d '\r')"
-```
+### 3Scale 
 
-Login as admin
+Todos deverão possuir uma conta no [Red Hat 3Scale](https://www.3scale.net), caso não tenha você deverá se cadastrar para uma trial [neste endereço](https://www.3scale.net/signup): https://www.3scale.net/signup
 
-```
-oc login -u admin
-Authentication required for https://10.1.2.2:8443 (openshift)
-Username: admin
-Password:
-Login successful.
+O acesso provido por essa conta trial é suficiente para concluirmos o laboratório 04 sem maiores problemas.
 
-```
+### (OPCIONAL) Openshift local (oc cluster up)
 
-Install Fuse image stream on OpenShift and Database template for this lab
+Para quem desejar utilizar o Openshift localmente, você deverá possuir o Docker 1.13 instalado no seu ambiente e posteriormente executar:
 
-```
-#FIS image
-oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json -n openshift
+	oc cluster up
 
-#MYSQL Database
-oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json -n openshift
-```
+O único ponto de atenção deve ser no laboratório 04 pois o deployment do gateway deverá utilizar a abordagem híbrida.
 
-log back in as developer
+Vamos deixar disponível os recursos do FIS no Openshift.
 
-```
-oc login -u openshift-dev
-Authentication required for https://10.1.2.2:8443 (openshift)
-Username: openshift-dev
-Password:
-Login successful.
 
-```
+	oc login -u system:admin
+	Authentication required for https://10.1.2.2:8443 (openshift)
+	Username: admin
+	Password:
+	Login successful.
 
-Access OpenShift console by going to the following URL in the browser.
+Instale o ImageStream e os teamplates para o FIS e o MYSQL
 
-```
-https://10.1.2.2:8443
-```
+	oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json -n openshift
 
-Going back to Red Hat JBoss Developer Studio, in OpenShift Explorer view, click on **New Connection Wizard..** to configure OpenShift setting
-Enter **https://10.1.2.2:8443** as the **Server** and click on the **retrieve** link to access the token.
+	oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json -n openshift
 
-![05-token.png](./img/05-token.png)
+Faça login como developer, utilizando as credenciais developer/developer (sem privilégios administrativos)
 
-In the popup window, log in as Developer using ID/PWD openshift-del/devel. Select ok and check the **Save token** box.
+	oc login -u openshift-dev
+	Authentication required for https://10.1.2.2:8443 (openshift)
+	Username: openshift-dev
+	Password:
+	Login successful.
 
-![06-connection.png](./img/06-connection.png)
-
-## Windows Users
-
-- Make sure you disable  Hyper-V functionality under Control Panel
-- Add _config.ssh.insert\_key=false_ to **Vagrantfile** ${DEVSUITE_INSTALLATION_PATH}/cdk/components/rhel/rhel-ose/
-
-Thanks to @sigreen
-
-## FAQ
-- How to install Maven?  
-	- Go to https://maven.apache.org/install.html for detail instructions
-- Maven dependency not found?
-	- ${MAVEN_INSTALLED_DIR} if you are having trouble downloading from the repositories
