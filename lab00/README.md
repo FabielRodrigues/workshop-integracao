@@ -22,9 +22,13 @@ Para instalar o JBoss Developer Studio, basta executar o **devstudio-integration
 ![07-jbds.png](./img/07-jbds.png)
 ![08-jbds.png](./img/08-jbds.png)
 ![09-jbds.png](./img/09-jbds.png)
+
 Substitua o /Users/rramalho para refletir o local onde você fez o unzip **workshop-integracao.zip** no começo deste lab.
+
 ![10-jbds.png](./img/10-jbds.png)
+
 Selecione somente as opções
+
 * Jboss Integration and SOA development
 * JBoss Fuse Tools
 
