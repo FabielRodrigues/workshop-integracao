@@ -7,7 +7,7 @@ Para começarmos pegue o arquivo **workshop-integracao.zip** e faça o unzip na 
 ### Maven
 
 É necessário configurar os repositórios Maven, neste repositórios estão armazenados todos os artefatos que precisaremos para construir nossas aplicações com o Fuse Integration Services.
-Copie o arquivo settings.xml para o diretório ~/.m2/settings.xml para usuários de Linux ou Mac OS) ou Documents and Settings\<USER_NAME>/.m2/settings.xml para usuários Windows.
+Copie o arquivo [settings.xml](https://raw.githubusercontent.com/RedHatBrasil/workshop-integracao/master/lab00/settings.xml) para o diretório **~/.m2/settings.xml** para usuários de Linux ou Mac OS) ou **Documents and Settings\<USER_NAME>/.m2/settings.xml** para usuários Windows.
 
 Neste settings.xml consta configurados os seguintes repositórios:
 
