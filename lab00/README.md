@@ -34,8 +34,11 @@ Selecione somente as opções
 
 ![11-jbds.png](./img/11-jbds.png)
 ![12-jbds.png](./img/12-jbds.png)
+
 Após a instalação o seu Jboss Developer Studio será iniciado.
+
 ![13-jbds.png](./img/13-jbds.png)
+
 Aponte o workspace para o **workshop-integracao/workspace**
 
 Pronto, temos o JBoss Developer Studio instalado e configurado pronto para começarmos a desenvolvedor as aplicações Fuse!
