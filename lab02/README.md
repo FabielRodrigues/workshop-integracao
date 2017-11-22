@@ -5,11 +5,10 @@ Para expor um endpoint HTTP (API), primeiramente temos que injetar um *Servlet* 
 ```
     ...
     <bean class="org.apache.camel.component.servlet.CamelHttpTransportServlet" id="camelHttpTransportServlet"/>
-    <bean
-        class="org.springframework.boot.web.servlet.ServletRegistrationBean" id="servlet">
+    <bean class="org.springframework.boot.web.servlet.ServletRegistrationBean" id="servlet">
         <property name="name" value="CamelServlet"/>
         <property name="servlet" ref="camelHttpTransportServlet"/>
-        <property name="urlMappings" value="/myfuselab/*"/>
+        <property name="urlMappings" value="/*"/>
     </bean>
     ...
 ```
@@ -19,7 +18,7 @@ No mesmo arquivo agora embaixo da tag `<camelcontext..>` adicione o seguinte tre
 ```
     ...
        <restConfiguration apiContextPath="api-docs" bindingMode="json"
-            component="servlet" contextPath="/myfuselab">
+            component="servlet" contextPath="/">
             <apiProperty key="cors" value="true"/>
             <apiProperty key="api.title" value="My First Camel API Lab"/>
             <apiProperty key="api.version" value="1.0.0"/>
@@ -111,8 +110,8 @@ select * from customerdemo where customerID=:#custid
 Verifique a documentação Swagger e teste as chamadas de API, se certificando que o customer retornado é o A01 no formato JSON.
 
 ```
-curl -i http://localhost:8080/myfuselab/api-docs
-curl -i http://localhost:8080/myfuselab/customer/A01
+curl -i http://localhost:8080/api-docs
+curl -i http://localhost:8080/customer/A01
 ```
 
 ```
