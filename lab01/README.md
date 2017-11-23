@@ -26,7 +26,19 @@ Execute essa rota, através da execução do método main da classe *Application
 
 ![03-2-run.png](./img/03-2-run.png)
 
-Adicione o trecho abaixo nas configurações de datasource no arquivo: **application-dev.properties**
+Vamos adicionar persitência em nossa aplicação, para o desenvolvimento local vamos utilizar o banco de dados em memória H2. Para isso vamos começar adicionando a dependência no **pom.xml**.
+
+	<dependencies>
+	...
+		<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+		<scope>runtime</scope>
+		</dependency>
+		...
+	</dependencies>
+
+Agora que a dependência está declara, podemos iniciar a configuração. Adicione o trecho abaixo nas configurações de datasource no arquivo: **application.properties**
 
 	#Database configuration
 	spring.datasource.url = jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -49,9 +61,9 @@ em File, insira **schema.sql** como nome para o arquivo, e se certifique que o m
 Adicione o seguinte SQL no arquivo **schema.sql**
 
 	CREATE TABLE customerdemo (
-	customerID varchar(10) NOT NULL,
-	vipStatus varchar(10) NOT NULL ,
-	balance integer NOT NULL
+		customerID varchar(10) NOT NULL,
+		vipStatus varchar(10) NOT NULL ,
+		balance integer NOT NULL
 	);
 
 	INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A01','Diamond',1000);
@@ -82,18 +94,6 @@ Agora na tab *Common* selecione **dataSource** para o atributo **Data Source**
 Por último arraste o componente **LOG** da palheta *Components* para o fim da rota. Na tab *Properties*-> *Detail*, atribua **${body}** para  o atributo **Message**.
 
 ![13-log.png](./img/13-log.png)
-
-Antes de executarmos a aplicação é necessário inserir a dependência do driver do banco de dados no arquivo **pom.xml**
-
-	<dependencies>
-	...
-		<dependency>
-		<groupId>com.h2database</groupId>
-		<artifactId>h2</artifactId>
-		<scope>runtime</scope>
-		</dependency>
-		...
-	</dependencies>
 
 Clique direito em **myfuselab** no painel **project explorer**, selecione **Run As..** -> **Maven build...** 
 
