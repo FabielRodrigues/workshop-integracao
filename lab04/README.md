@@ -35,7 +35,7 @@ Antes de provisionar o API gateway on-premise, você deverá verificar o seguint
 
     ![03-edit-settings.png](./img/03-edit-settings.png)
 
-5. Selecione a opção **APIcast self-managed** como opção para deploy do Gateway.
+5. Selecione a opção **APIcast** como opção para deploy do Gateway.
 
     ![04-apicast.png](./img/04-apicast.png)
 
@@ -83,7 +83,7 @@ Antes de provisionar o API gateway on-premise, você deverá verificar o seguint
 
     ![07b-edit-mapping-rule.png](./img/07b-edit-mapping-rule.png)
 
-17. Insira `/myfuselab/customer/all` para o Pattern
+17. Insira `/customers` para o Pattern
 
 18. Selecione `customers_all` como Method
 
@@ -93,11 +93,7 @@ Antes de provisionar o API gateway on-premise, você deverá verificar o seguint
 
 20. Preencha as informações para acessar sua API:
 
-    **Private Base URL:** `http://camel-ose-springboot-xml:80`
-
-    **Staging Public Base URL:** `http://customer-api-staging.127.0.0.1.nip.io:80`
-
-    **Production Public Base URL:** `http://customer-api-production.127.0.0.1.nip.io:80`
+    **Private Base URL:** `http://camel-ose-springboot-xml-workshop-user-16.apps.ocp.rhbrlab.com:80`
 
     ![07-baseurl-configuration.png](./img/07-baseurl-configuration.png)
 
@@ -105,7 +101,7 @@ Antes de provisionar o API gateway on-premise, você deverá verificar o seguint
 
 21. Mais abaixo clique em **API Test GET request**
 
-22. Informe `/myfuselab/customer/all`
+22. Informe `/api/customers`
 
 23. Clique em **Update the Staging Environment** para salvar as alterações e clique em **Back to Integration & Configuration** para voltar para página das integrações
 
