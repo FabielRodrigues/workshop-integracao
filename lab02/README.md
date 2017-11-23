@@ -27,12 +27,12 @@ Antes de adentrarmos, vamos adicionar as dependências necessárias no arquivo *
     <bean class="org.springframework.boot.web.servlet.ServletRegistrationBean" id="servlet">
         <property name="name" value="CamelServlet"/>
         <property name="servlet" ref="camelHttpTransportServlet"/>
-        <property name="urlMappings" value="/*"/>
+        <property name="urlMappings" value="/api/*"/>
     </bean>
 
 No mesmo arquivo agora embaixo da tag `<camelcontext..>` adicione o seguinte trecho de código para configurar o endpoint REST. Dessa forma ele estará o Servlet que injetamos no último passo
 
-    <restConfiguration apiContextPath="api-docs" bindingMode="json" component="servlet" contextPath="/">
+    <restConfiguration apiContextPath="api-doc" bindingMode="json" component="servlet" contextPath="/api">
         <apiProperty key="cors" value="true"/>
         <apiProperty key="api.title" value="My First Camel API Lab"/>
         <apiProperty key="api.version" value="1.0.0"/>
@@ -66,7 +66,7 @@ por
 
 Agora com um click direito no projeto **myfuselab** no painel *project explorer*, selecione **Run As..** -> **Maven build** para inicializar a aplicação novamente. Abra o seu navegador e insira a url
 
-    http://localhost:8080/customers
+    http://localhost:8080/api/customers
 
 Verifique se o retorno é a lista de *customers* no formato JSON.
 
@@ -85,7 +85,7 @@ Verifique se o retorno é a lista de *customers* no formato JSON.
 
 Para verificar a documentação swagger acesse a url
 
-    http://localhost:8080/api-docs
+    http://localhost:8080/api/api-doc
 
 Pare a aplicação. 
 
@@ -106,7 +106,7 @@ SQL:
 Verifique a documentação Swagger e teste as chamadas de API, se certificando que o customer retornado é o A01 no formato JSON.
 
 
-http://localhost:8080/customers/A01
+http://localhost:8080/api/customers/A01
 
     [
         {
@@ -116,3 +116,9 @@ http://localhost:8080/customers/A01
         }
     ]
  
+## Swagger-ui (Opcional)
+
+Copie o diretório static para **workshop-integracao/workspace/myfuselab/src/main/resources**
+
+
+
