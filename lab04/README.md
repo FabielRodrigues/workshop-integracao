@@ -203,58 +203,6 @@ Liquid is a simple programming language used for displaying and processing most 
     > **Note:** Copy down this key as it is used to authenticate yourself to the managed API.
 
 
-### Step 4: Test APIcast
+Agora teste as chamadas para sua api através do API Management.
 
-1. Test that APIcast authorizes a valid call to your API, by executing a curl command with your valid developer's `user_key` to the `hostname` that you configured in the previous step:
 
-    ```
-    curl -i "http://customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io:80/myfuselab/customer/all?user_key=YOUR_USER_KEY" --insecure
-    ```
-    You should see the following messages:
-
-    ```
-    HTTP/1.1 200 OK
-    Server: openresty/1.11.2.2
-    Date: Tue, 30 May 2017 20:13:33 GMT
-    Content-Type: application/json
-    Transfer-Encoding: chunked
-    X-Application-Context: application:dev
-    accept: */*
-    breadcrumbId: ID-traveler-laptop-rh-mx-redhat-com-45222-1496169770755-0-16
-    forwarded: for=192.168.42.1;host=customer-api-staging.192.168.42.100.nip.io;proto=http
-    user-agent: curl/7.29.0
-    user_key: c13de99abb137810df23ce011d2a948a
-    x-3scale-proxy-secret-token: Shared_secret_sent_from_proxy_to_API_backend_71cfe31d89d8cf53
-    x-forwarded-for: 192.168.42.1
-    x-forwarded-host: customer-api-staging.192.168.42.100.nip.io
-    x-forwarded-port: 80
-    x-forwarded-proto: http
-    x-real-ip: 172.17.0.1
-    Set-Cookie: e286b151c44656235d8bdca6ee183477=e58d9930d57779957bf1695b6c805dcd; path=/; HttpOnly
-    Cache-control: private
-
-    [{"CUSTOMERID":"A01","VIPSTATUS":"Diamond","BALANCE":1000},{"CUSTOMERID":"A02","VIPSTATUS":"Gold","BALANCE":500}]
-    ```
-
-    The last line is the same output as when calling the API directly.
-
-2. Test that APIcast does not authorize an invalid call to your API.
-
-    ```
-    curl -i "http://customer-api-production.<OPENSHIFT-SERVER-IP>.nip.io:80/myfuselab/customer/all?user_key=INVALID_KEY" --insecure
-    ```
-
-    When calling the API endpoint with an invalid key, the following messages appear:
-
-    ```
-    HTTP/1.1 403 Forbidden
-    Server: openresty/1.11.2.2
-    Date: Tue, 30 May 2017 20:17:19 GMT
-    Content-Type: text/plain; charset=us-ascii
-    Transfer-Encoding: chunked
-    Set-Cookie: e286b151c44656235d8bdca6ee183477=e58d9930d57779957bf1695b6c805dcd; path=/; HttpOnly
-    ```
-
-    The *HTTP/1.1 403 Forbidden* response code indicates that our user_key was wrong or we don't have permisson to access this API endpoint.
-
-3. You have sucessfully configured 3scale API Management and Gateway to access your API.
