@@ -2,7 +2,7 @@
 
 1. Acesse o Openshift em https://console.ocp.rhbrlab.com:8443
 
-![00-openshift.png](./img/00-openshift.png)
+![00-openshift.png](./img/00-ocp.png)
 
 Agora que temos o Openshift em execução não precisamos continuar testando nossa aplicação com o banco de dados em memória H2, agora podemos executar com uma base de dados real para isso utilizaremos o MYSQL. Substitua a configuração do banco H2 pelo seguinte trecho de código no arquivo **application.properties** que se encontra no diretório *src/main/resources*.
 
@@ -44,7 +44,7 @@ No **Openshift Explorer**, clique com o direito em **connection** e crie um novo
 1. Clique em **New Connection Wizard...** Para configurar o Openshift. Em **Server** Insira a URL do console web Openshift (https://console.ocp.rhbrlab.com:8443) e clique em  **retrieve** para obter o token de acesso.
 1. Nova nova janela faça login como desenvolvedor usando as credenciais entregue no inicio do workshop.
 
-    ![05-token.png](./img/05-token.png)
+    ![05-token1.png](./img/05-token1.png)
 
 1. Clique em **Close**
 1. **DESMARQUE** o botão *Save token* e clique em **Finish**
