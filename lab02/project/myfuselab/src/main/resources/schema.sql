@@ -1,6 +1,6 @@
 CREATE TABLE customerdemo (
 	customerID varchar(10) NOT NULL,
-	vipStatus varchar(10) NOT NULL ,  
+	vipStatus varchar(10) NOT NULL ,
 	balance integer NOT NULL
 );
 

@@ -34,5 +34,9 @@ public class MyTransformer {
         }
         return buffer.toString();
     }
+    
+    public String rodrigo(){
+    	return "ramalho";
+    }
 
 }
