@@ -120,5 +120,4 @@ http://localhost:8080/api/customers/A01
 
 Copie o diretório static para **workshop-integracao/workspace/myfuselab/src/main/resources**
 
-
-
+![02-swagger-ui.png](./img/02-swagger-ui.png)
