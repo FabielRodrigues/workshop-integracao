@@ -53,8 +53,6 @@ Agora iremos expor um único API endpoint, logo após **restConfiguration** adic
     ...
 ```
 
-![01-rest-configuration.png](./img/01-rest-configuration.png)
-
 Agora invés de chamar um *select* na base de dados através do componente timer como havíamos feito, iremos fazer com que essa interação seja via uma chamada a uma API. Na rota Camel, troque o componente **Timer** pelo componente **Direct**.
 
 Troque
@@ -63,7 +61,7 @@ Troque
 
 por
 
-    <from id="direct1" uri="direct:getallcustomer"/>
+    <from id="direct1" uri="direct:getcustomers"/>
 
 Agora com um click direito no projeto **myfuselab** no painel *project explorer*, selecione **Run As..** -> **Maven build** para inicializar a aplicação novamente. Abra o seu navegador e insira a url
 
