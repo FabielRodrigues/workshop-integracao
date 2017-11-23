@@ -34,6 +34,7 @@ No mesmo arquivo agora embaixo da tag `<camelcontext..>` adicione o seguinte tre
 
     <restConfiguration apiContextPath="api-doc" bindingMode="json" component="servlet" contextPath="/api">
         <apiProperty key="cors" value="true"/>
+        <apiProperty key="host" value=""/>
         <apiProperty key="api.title" value="My First Camel API Lab"/>
         <apiProperty key="api.version" value="1.0.0"/>
     </restConfiguration>
