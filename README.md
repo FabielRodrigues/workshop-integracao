@@ -10,6 +10,4 @@ O workshop será baseado em laboratórios práticos:
 3. [Fazer o deploy desta aplicação no Openshift](./lab03/README.md)
 4. [Gerenciar e controlar o acesso a essas APIs através do 3Scale](./lab04/README.md) 
 
-Overview
-
 ![Overview](./img/01-overview.png)
