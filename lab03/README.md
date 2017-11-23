@@ -55,48 +55,42 @@
 
 1. Adicione os imagestreams e templates do `mysql-ephemeral` e `FIS`
 
-   FIS images
-   ```
-   oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json -n openshift --as=system:admin
-   ```
+FIS images
 
-   MYSQL Database
-   ```
-   oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json -n openshift --as=system:admin
-   ```
+    oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json -n openshift --as=system:admin
+
+MYSQL Database
+
+    oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json -n openshift --as=system:admin
 
 You can try view the OpenShift console by going to https://127.0.0.1:8443/console in the browser. 
 
 ![00-openshift.png](./img/00-openshift.png)
 
-Agora que temos o Openshift em execução não precisamos continuar testando nossa aplicação com o banco de dados em memória H2, agora podemos executar com uma base de dados real para isso utilizaremos o MYSQL. Adicione o seguinte trecho de código no arquivo **application.properties** que se encontra no diretório *src/main/resources*.
+Agora que temos o Openshift em execução não precisamos continuar testando nossa aplicação com o banco de dados em memória H2, agora podemos executar com uma base de dados real para isso utilizaremos o MYSQL. Substitua a configuração do banco H2 pelo seguinte trecho de código no arquivo **application.properties** que se encontra no diretório *src/main/resources*.
 
-```
-#mysql specific
-mysql.service.name=mysql
-mysql.service.database=sampledb
-mysql.service.username=dbuser
-mysql.service.password=password
+    #mysql specific
+    mysql.service.name=mysql
+    mysql.service.database=sampledb
+    mysql.service.username=dbuser
+    mysql.service.password=password
 
-#Database configuration
-spring.datasource.url = jdbc:mysql://${${mysql.service.name}.service.host}:${${mysql.service.name}.service.port}/${mysql.service.database}
-spring.datasource.username = ${mysql.service.username}
-spring.datasource.password = ${mysql.service.password}
-```
+    #Database configuration
+    spring.datasource.url = jdbc:mysql://${${mysql.service.name}.service.host}:${${mysql.service.name}.service.port}/${mysql.service.database}
+    spring.datasource.username = ${mysql.service.username}
+    spring.datasource.password = ${mysql.service.password}
 
 Como estamos utilizando o banco de dados MYSQL, iremos adicionar o driver como dependência no arquivo **pom.xml**
 
-```
-<dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-jdbc</artifactId>
-</dependency>
-<dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <scope>runtime</scope>
-</dependency>
-```
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <scope>runtime</scope>
+    </dependency>
 
 Abra o **Openshift Explorer View**, no menu do topo selecione **Window -> Show view -> others**. Uma janela irá aparecer, digite openshift no campo de busca e selecione **Openshift Explorer**
 
@@ -113,12 +107,12 @@ No **Openshift Explorer**, clique com o direito em **connection** e crie um novo
 1. Clique em **New Connection Wizard...** Para configurar o Openshift. Em **Server** Insira a URL do console web Openshift (https://127.0.0.1:8443) e clique em  **retrieve** para obter o token de acesso.
 1. Nova nova janela faça login como desenvolvedor usando as credenciais developer/developer.
 
-    ![05-token.png](../img/05-token.png)
+    ![05-token.png](./img/05-token.png)
 
 1. Clique em **Close**
 1. **DESMARQUE** o botão *Save token* e clique em **Finish**
 
-    ![06-connection.png](../img/06-connection.png)
+    ![06-connection.png](./img/06-connection.png)
 
 Então crie um projeto com o nome **myfuseproject** com o Display Name **My Fuse Project**
 
