@@ -4,7 +4,7 @@ Este é um workshop prático com o objetivo de fornecer uma primeira experiênci
 
 O workshop será baseado em laboratórios práticos:
 
-0. [Setup](./lab00/README.md)
+0. [Setup](./lab00/README.md)[newtab]
 1. [Criar um projeto Fuse que obtem registros de um banco de dados](./lab01/README.md)
 2. [Expor o acesso a esses registros através de um endpoint REST](./lab02/README.md)
 3. [Fazer o deploy desta aplicação no Openshift](./lab03/README.md)
