@@ -63,6 +63,43 @@ por
 
     <from id="direct1" uri="direct:getcustomers"/>
 
+Verifique se seu arquivo **camel-context** está similar ao abaixo:
+
+```
+    ...
+    <bean class="org.apache.camel.component.servlet.CamelHttpTransportServlet" id="camelHttpTransportServlet" />
+	<bean class="org.springframework.boot.web.servlet.ServletRegistrationBean" id="servlet">
+		<property name="name" value="CamelServlet" />
+		<property name="servlet" ref="camelHttpTransportServlet" />
+		<property name="urlMappings" value="/api/*" />
+	</bean>
+
+	<!-- Define a traditional camel context here -->
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+
+		<restConfiguration apiContextPath="api-doc" bindingMode="json" component="servlet" contextPath="/api">
+			<apiProperty key="cors" value="true" />
+			<apiProperty key="host" value="" />
+			<apiProperty key="api.title" value="My First Camel API Lab" />
+			<apiProperty key="api.version" value="1.0.0" />
+		</restConfiguration>
+
+		<rest path="/customers">
+			<get uri="/">
+				<description>Retrieve all customer data</description>
+				<to uri="direct:getcustomers" />
+			</get>
+		</rest>
+
+		<route id="customer">
+			<from id="direct1" uri="direct:getcustomers" />
+			<to id="toSql" uri="sql:select * from customerdemo?dataSource=dataSource" />
+			<log id="toLog" message="${body}" />
+		</route>
+	</camelContext>
+    ...
+```
+
 Agora com um click direito no projeto **myfuselab** no painel *project explorer*, selecione **Run As..** -> **Maven build** para inicializar a aplicação novamente. Abra o seu navegador e insira a url
 
     http://localhost:8080/api/customers
