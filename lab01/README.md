@@ -31,11 +31,16 @@ Vamos adicionar persitência em nossa aplicação, para o desenvolvimento local 
 	<dependencies>
 	...
 		<dependency>
-		<groupId>com.h2database</groupId>
-		<artifactId>h2</artifactId>
-		<scope>runtime</scope>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
-		...
+		
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-sql</artifactId>
+		</dependency>
+	...
 	</dependencies>
 
 Agora que a dependência está declara, podemos iniciar a configuração. Adicione o trecho abaixo nas configurações de datasource no arquivo: **application.properties**
