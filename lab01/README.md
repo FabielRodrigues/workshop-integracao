@@ -122,6 +122,10 @@ Por último arraste o componente **LOG** da palheta *Components* para o fim da r
 
 ![13-log.png](./img/13-log.png)
 
+Caso tenha preferido seguir utilizando a DSL Java, o resultado deve ser o seguinte
+
+![route-dsl.png](./img/route-dsl.png)
+
 Execute o projeto, para isso pode fazer como mostramos anteriormentes através da execução do método main da classe **Application.java** ou através do **Maven** da seguinte maneira:
 
 Clique direito em **customer** no painel **project explorer**, selecione **Run As..** -> **Maven build...** 
