@@ -21,7 +21,7 @@ Antes de adentrarmos, vamos adicionar as dependências necessárias no arquivo *
         <artifactId>camel-swagger-java-starter</artifactId>
     </dependency>
 
- Agora abra o arquivo **camel-context** exibido debaixo da opção **Camel Contexts**, abra a tab *source* e adicione o trecho o seguinte trecho de código antes da tag `<camelContext..>`.
+ Agora precisamos configurar ServletContainer para que possamos trabalhar com as requisições HTTP. Abra o arquivo **camel-context** exibido debaixo da opção **Camel Contexts**, abra a tab *source* e adicione o trecho o seguinte trecho de código antes da tag `<camelContext..>`.
 
     <bean class="org.apache.camel.component.servlet.CamelHttpTransportServlet" id="camelHttpTransportServlet"/>
     <bean class="org.springframework.boot.web.servlet.ServletRegistrationBean" id="servlet">
@@ -30,7 +30,7 @@ Antes de adentrarmos, vamos adicionar as dependências necessárias no arquivo *
         <property name="urlMappings" value="/api/*"/>
     </bean>
 
-No mesmo arquivo agora embaixo da tag `<camelcontext..>` adicione o seguinte trecho de código para configurar o endpoint REST. Dessa forma ele estará o Servlet que injetamos no último passo
+Para configurar a documentação da api (api-doc). No mesmo arquivo agora dentro da tag `<camelcontext..>` e antes da tag `<route...>` adicione o seguinte trecho de código para configurar o endpoint REST. Dessa forma ele estará o Servlet que injetamos no último passo
 
     <restConfiguration apiContextPath="api-doc" bindingMode="json" component="servlet" contextPath="/api">
         <apiProperty key="cors" value="true"/>
