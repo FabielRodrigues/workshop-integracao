@@ -122,7 +122,9 @@ Por último arraste o componente **LOG** da palheta *Components* para o fim da r
 
 ![13-log.png](./img/13-log.png)
 
-Clique direito em **myfuselab** no painel **project explorer**, selecione **Run As..** -> **Maven build...** 
+Execute o projeto, para isso pode fazer como mostramos anteriormentes através da execução do método main da classe **Application.java** ou através do **Maven** da seguinte maneira:
+
+Clique direito em **customer** no painel **project explorer**, selecione **Run As..** -> **Maven build...** 
 
 ![14-mavenrun.png](./img/14-mavenrun.png)
 
@@ -141,7 +143,7 @@ Na IDE Jboss Developer Studio (JBDS), crie um novo projeto utilizando o click di
 
 ![01-FIS-project.png](./img/01-FIS-project.png)
 
-Para o nome do projeto utilize **myfuselab** , e clique em *next*
+Para o nome do projeto utilize **customer** , e clique em *next*
 
 IMPORTANTE : Selecione a versão **2.18.1.redhat-000015** do Camel !
 
