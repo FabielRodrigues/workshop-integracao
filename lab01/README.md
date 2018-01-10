@@ -25,13 +25,13 @@ Preencha com os seguintes valores:
 
 ![new-maven-project-04.png](./img/new-maven-project-04.png)
 
-Execute essa rota, através da execução do método main da classe *Application.java*. Clique com o botão direito em cima do método main, *Run As* -> *Java Application*
+Execute essa rota, através da execução do método main da classe **Application.java**. Clique com o botão direito em cima do método main, **Run As -> Java Application**
 
 ![03-2-run.png](./img/run-java-application.png)
 
 Observe os logs no console...
 
-No Camel você pode criar suas rotas tanto utilizando XML ou Java. Vamos adicionar um componente de log para mostrar um pouquinho de como é a utilização.
+O Camel permite que você escreva as integrações em XML ou Java. Vamos adicionar um componente de log para mostrar um pouquinho de como é a utilização.
 
 Adicione o componente de log na Rota (Utilize o auto complete) e execute novamente.
 
@@ -96,7 +96,7 @@ Adicione o seguinte SQL no arquivo **schema.sql**
 	INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A01','Diamond',1000);
 	INSERT INTO customerdemo (customerID,vipStatus,balance) VALUES ('A02','Gold',500);
 
-![07-sql.png](./img/07-sql.png)
+![07-sql.png](./img/07-schema-sql.png)
 
 Duplo clique no arquivo **camel-context.xml** em **Camel Contexts**, agora você estará vendo uma rota camel. Remova a rota existente do canvas.
 
