@@ -4,10 +4,7 @@ Para expor um endpoint HTTP (API), primeiramente temos que injetar um *Servlet* 
 
 Antes de adentrarmos, vamos adicionar as dependências necessárias no arquivo **pom.xml** assim podemos focar no desenvolvimento.
 
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
+
     <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-servlet-starter</artifactId>
@@ -30,7 +27,7 @@ Antes de adentrarmos, vamos adicionar as dependências necessárias no arquivo *
         <property name="urlMappings" value="/api/*"/>
     </bean>
 
-Para configurar a documentação da api (api-doc). No mesmo arquivo agora dentro da tag `<camelcontext..>` e antes da tag `<route...>` adicione o seguinte trecho de código para configurar o endpoint REST. Dessa forma ele estará o Servlet que injetamos no último passo
+Para configurar a documentação da api (api-doc). No mesmo arquivo agora dentro da tag `<camelcontext..>` e antes da tag `<route...>` adicione o seguinte trecho de código para configurar o endpoint REST. Dessa forma ele estará utilizando Servlet que injetamos no último passo
 
     <restConfiguration apiContextPath="api-doc" bindingMode="json" component="servlet" contextPath="/api">
         <apiProperty key="cors" value="true"/>
@@ -40,7 +37,9 @@ Para configurar a documentação da api (api-doc). No mesmo arquivo agora dentro
     </restConfiguration>
     <!-- Right above route id="customer" -->    
 
-Agora iremos expor um único API endpoint, logo após **restConfiguration** adicione
+Terminado o setup das configurações necessárias para se trabalhar com o REST no Camel, podemos definir nossas APIs.
+
+Logo após **restConfiguration** adicione, vamos configurar o path REST **/customers** que ao receber uma requisição **GET** ira direcionar para a rota **direct:getcustomers**.
 
 ```
     ...
@@ -53,7 +52,7 @@ Agora iremos expor um único API endpoint, logo após **restConfiguration** adic
     ...
 ```
 
-Agora invés de chamar um *select* na base de dados através do componente timer como havíamos feito, iremos fazer com que essa interação seja via uma chamada a uma API. Na rota Camel, troque o componente **Timer** pelo componente **Direct**.
+Agora invés de chamar um *select* na base de dados através do componente **Timer** como havíamos feito, iremos fazer com que essa interação seja via uma chamada a uma API. Na rota Camel, troque o componente **Timer** pelo componente **Direct**.
 
 Troque
 
@@ -61,7 +60,7 @@ Troque
 
 por
 
-    <from id="direct1" uri="direct:getcustomers"/>
+    <from id="directCustomers" uri="direct:getcustomers"/>
 
 Verifique se seu arquivo **camel-context** está similar ao abaixo:
 
@@ -100,7 +99,7 @@ Verifique se seu arquivo **camel-context** está similar ao abaixo:
     ...
 ```
 
-Agora com um click direito no projeto **myfuselab** no painel *project explorer*, selecione **Run As..** -> **Maven build** para inicializar a aplicação novamente. Abra o seu navegador e insira a url
+Agora com um click direito no projeto **customer** no painel *project explorer*, selecione **Run As..** -> **Maven build** para inicializar a aplicação novamente. Abra o seu navegador e insira a url
 
     http://localhost:8080/api/customers
 
@@ -124,6 +123,52 @@ Para verificar a documentação swagger acesse a url
     http://localhost:8080/api/api-doc
 
 Pare a aplicação. 
+
+Caso tenha decidido fazer usando Java DSL.
+
+Crie uma classe chamado RestSetup para fazer a configuração do Servlet e API-DOC.
+
+```
+@Component
+public class RestSetup extends RouteBuilder{
+
+	@Bean
+	ServletRegistrationBean servletRegistrationBean() {
+		ServletRegistrationBean servlet = new ServletRegistrationBean(
+				new CamelHttpTransportServlet(), "/api/*");
+		servlet.setName("CamelServlet");
+		return servlet;
+	}
+
+	@Override
+	public void configure() {
+		restConfiguration()
+			.contextPath("/api").apiContextPath("/api-doc")
+			.host("")
+			.apiProperty("api.title", "Order REST API")
+			.apiProperty("api.version", "1.0")
+			.apiProperty("cors", "true")
+			.apiContextRouteId("doc-api")
+			.component("servlet")
+			.enableCORS(true)
+			.bindingMode(RestBindingMode.json);
+	}
+}
+``` 
+Define o mapeamento REST na rota
+
+```
+@Override
+public void configure() throws Exception {
+    rest("/customers").description("Customers API")
+        .get("/").description("List customers")
+            .to("direct:getcustomers");
+    
+    from("direct:getcustomers")
+        .to("sql:select * from customerdemo?dataSource=dataSource")
+        .log("${body}");
+}
+```
 
 ## Desafio
 
@@ -154,6 +199,6 @@ http://localhost:8080/api/customers/A01
  
 ## Swagger-ui (Opcional)
 
-Copie o diretório static para **workshop-integracao/workspace/myfuselab/src/main/resources**
+Copie o diretório static para **workshop-integracao/workspace/customer/src/main/resources**
 
 ![02-swagger-ui.png](./img/02-swagger-ui.png)
