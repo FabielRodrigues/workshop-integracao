@@ -1,32 +1,54 @@
 ## Lab 01 - Criar um projeto FIS (SpringBoot)
 
-Na IDE Jboss Developer Studio (JBDS), crie um novo projeto utilizando o click direito do mouse no painel project explorer, selecione: **New** -> **Fuse Integration Project**
+Na IDE Jboss Developer Studio (JBDS), crie um novo projeto utilizando o click direito do mouse no painel project explorer, selecione: **New** -> **Other**
 
-![01-FIS-project.png](./img/01-FIS-project.png)
+![new-maven-project-00.png](./img/new-maven-project-00.png)
 
-Para o nome do projeto utilize **myfuselab** , e clique em *next*
+Procure por **Maven** e selecione **Maven Project**
 
-IMPORTANTE : Selecione a versão **2.18.1.redhat-000015** do Camel !
+![new-maven-project-01.png](./img/new-maven-project-01.png)
 
-Em *select target runtime*, clique em *next*
+Na proxima tela simplesmente selecione Next.
 
-![02-runtime.png](./img/02-runtime.png)
+![new-maven-project-02.png](./img/new-maven-project-02.png)
 
-Em *Advance project setup*, escolha **Use a predefined template** e selecione **Fuse on OpenShift** -> **SprintBoot on OpenShift** e clique em *finish*
+Note que a lista de artifacts pode demorar um pouco a ser exibida uma vez que ela é obtida via internet.
 
-![03-template.png](./img/03-template.png)
+Exibindo a lista de artifacts, filtre por **fis** e selecione a opção **spring-boot-camel-archetype**.
 
-O JBDS irá perguntar se você quer alterar a perspectiva para Fuse, informe que *sim*.
+![new-maven-project-03.png](./img/new-maven-project-03.png)
 
-Antes de continuar, vamos dar uma olhada no que temos até agora. Abra o arquivo *camel-context.xml*, veja que temos uma rota simples com 3 componentes criada.
+Preencha com os seguintes valores:
 
-![03-1-overview.png](./img/03-1-overview.png)
+	groupId: com.redhat.workshop
+	artifactId: customer
+
+![new-maven-project-04.png](./img/new-maven-project-04.png)
 
 Execute essa rota, através da execução do método main da classe *Application.java*. Clique com o botão direito em cima do método main, *Run As* -> *Java Application*
 
-![03-2-run.png](./img/03-2-run.png)
+![03-2-run.png](./img/run-java-application.png)
 
-Vamos adicionar persitência em nossa aplicação, para o desenvolvimento local vamos utilizar o banco de dados em memória H2. Para isso vamos começar adicionando a dependência no **pom.xml**.
+Observe os logs no console...
+
+No Camel você pode criar suas rotas tanto utilizando XML ou Java. Vamos adicionar um componente de log para mostrar um pouquinho de como é a utilização.
+
+Adicione o componente de log na Rota (Utilize o auto complete) e execute novamente.
+
+![java-dsl-log.png](./img/java-dsl-log.png)
+
+Agora, vamos alterar para o modo XML, para isso iremos comentar o método **configure()** e remover o **extends RouterBuilder** da classe Java.
+
+![comment-java-dsl.png](./img/comment-java-dsl.png)
+
+No arquivo camel-context.xml remova os comentários e abra o arquivo novamente, você deverá ver a rota em um formato bem visual
+
+![uncoment-spring-xml.png](./img/uncomment-spring-xml.png)
+![open-route-design.png](./img/open-route-design.png)
+
+Para adicionar um pouco mais de dinamismo nessa aplicação vamos fazer ela interagir com uma base de dados.
+
+Para o desenvolvimento local vamos utilizar o banco de dados em memória H2. Para isso vamos começar adicionando a dependência no **pom.xml**.
 
 	<dependencies>
 	...
@@ -43,7 +65,7 @@ Vamos adicionar persitência em nossa aplicação, para o desenvolvimento local 
 	...
 	</dependencies>
 
-Agora que a dependência está declara, podemos iniciar a configuração. Adicione o trecho abaixo nas configurações de datasource no arquivo: **application.properties**
+Agora que a dependência está declarada, podemos iniciar a configuração. Adicione o trecho abaixo nas configurações de datasource no arquivo: **application.properties**
 
 	#Database configuration
 	spring.datasource.url = jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -111,3 +133,32 @@ Na janela popup insira **spring-boot:run** em *Goals* e selecione **Skip Tests**
 Agora no console de logs, verifique que os dados do customer estão sendo exibidos
 
 	customer - [{CUSTOMERID=A01, VIPSTATUS=Diamond, BALANCE=1000}, {CUSTOMERID=A02, VIPSTATUS=Gold, BALANCE=500}]
+
+
+### Método Alternativo de criar um Projeto
+
+Na IDE Jboss Developer Studio (JBDS), crie um novo projeto utilizando o click direito do mouse no painel project explorer, selecione: **New** -> **Fuse Integration Project**
+
+![01-FIS-project.png](./img/01-FIS-project.png)
+
+Para o nome do projeto utilize **myfuselab** , e clique em *next*
+
+IMPORTANTE : Selecione a versão **2.18.1.redhat-000015** do Camel !
+
+Em *select target runtime*, clique em *next*
+
+![02-runtime.png](./img/02-runtime.png)
+
+Em *Advance project setup*, escolha **Use a predefined template** e selecione **Fuse on OpenShift** -> **SprintBoot on OpenShift** e clique em *finish*
+
+![03-template.png](./img/03-template.png)
+
+O JBDS irá perguntar se você quer alterar a perspectiva para Fuse, informe que *sim*.
+
+Antes de continuar, vamos dar uma olhada no que temos até agora. Abra o arquivo *camel-context.xml*, veja que temos uma rota simples com 3 componentes criada.
+
+![03-1-overview.png](./img/03-1-overview.png)
+
+Execute essa rota, através da execução do método main da classe *Application.java*. Clique com o botão direito em cima do método main, *Run As* -> *Java Application*
+
+![03-2-run.png](./img/03-2-run.png)
